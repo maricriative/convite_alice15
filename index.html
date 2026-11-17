@@ -53,16 +53,17 @@ button{font:inherit;cursor:pointer;border:none;background:none}
 #menu a{white-space:nowrap;text-decoration:none;font-size:.8rem;font-weight:600;padding:6px 14px;border-radius:99px;color:var(--ouro-claro);background:rgba(255,255,255,.08);border:1px solid var(--ouro)}
 #menu a:active{background:var(--ouro);color:var(--vinho)}
 
-.hero{min-height:100svh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;color:var(--vinho);
+.hero{min-height:100svh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(24px,6vh,48px);text-align:center;color:var(--vinho);
   padding:40px 20px calc(40px + env(safe-area-inset-bottom,0px));position:relative;overflow:hidden;background-size:cover;background-position:center;
   background-color:var(--salmao)}
 .hero::before{content:"";position:absolute;inset:12px;border:1px solid var(--ouro);pointer-events:none;z-index:4;opacity:.8}
 .hero .topo,.hero .base{position:relative;z-index:3;width:100%;max-width:420px}
-.hero .topo{margin-top:20px}
+.hero .topo{display:flex;flex-direction:column;align-items:center;gap:14px}
+.hero .frase-img{width:100%;max-width:300px}
 .tag-15{font-family:var(--f-tit);font-size:.85rem;letter-spacing:.3em;color:var(--vinho);text-transform:uppercase;font-weight:700;background:var(--fundo);border:1px solid var(--ouro);border-radius:99px;padding:6px 16px;display:inline-block;box-shadow:0 4px 14px rgba(184,71,79,.18)}
 .hero h1{font-family:var(--f-nome);font-size:clamp(3rem,14vw,4.6rem);line-height:1.1;margin-top:10px;color:var(--vinho);text-shadow:0 2px 10px var(--fundo)}
-.hero .logo-png{max-width:280px;margin:10px auto 0}
-.hero .frase{margin-top:12px;font-size:.9rem;color:var(--vinho);font-weight:500;background:var(--fundo);border:1px solid var(--ouro);border-radius:99px;padding:6px 16px;display:inline-block;box-shadow:0 4px 14px rgba(184,71,79,.18)}
+.hero .logo-png{max-width:280px;margin:0 auto}
+.hero .frase{font-size:.9rem;color:var(--vinho);font-weight:500;background:var(--fundo);border:1px solid var(--ouro);border-radius:99px;padding:6px 16px;display:inline-block;box-shadow:0 4px 14px rgba(184,71,79,.18)}
 .hero .data{font-family:var(--f-tit);font-size:1rem;letter-spacing:.1em;color:var(--vinho);font-weight:700;margin-bottom:14px;text-transform:uppercase;background:var(--fundo);border:1px solid var(--ouro);border-radius:99px;padding:6px 16px;display:inline-block;box-shadow:0 4px 14px rgba(184,71,79,.18)}
 .contagem{display:flex;gap:8px;justify-content:center}
 .contagem div{min-width:58px;padding:10px 4px;background:var(--fundo);border:1px solid var(--ouro);border-radius:10px;box-shadow:0 4px 14px rgba(184,71,79,.2)}
@@ -164,7 +165,8 @@ const CONFIG = {
   imagemAbertura: "Recreate_envelope_with_stamp_and…_caa9f46a.jpg",
   videoAbertura: "Aba_abre_com_fumaça_dourada_36db9bd2.mp4",
 
-  frase: "",
+  frase: "",                // texto da frase (deixe "" se usar imagem)
+  fraseImagem: "",          // OU URL/arquivo de uma imagem com a frase (tem prioridade sobre o texto)
   dataHora: "2027-01-23T20:00:00",   // ⚠️ AJUSTE O HORÁRIO
   cidade: "Brasília - DF",
 
@@ -196,8 +198,7 @@ const CONFIG = {
 
   dressCode: {
     titulo: "Dress Code",
-    texto: "Traje Esporte Fino.",
-    cores: [""]
+    texto: "Traje Esporte Fino."
   },
 
   galeria: [
@@ -314,7 +315,7 @@ const capa = `
   <div class="topo">
     <p class="tag-15">Meus XV anos</p>
     ${C.logoNome ? `<img class="logo-png" src="${C.logoNome}" alt="${C.nome}">` : `<h1>${C.nome}</h1>`}
-    <p class="frase">${C.frase}</p>
+    ${C.fraseImagem ? `<img class="frase-img" src="${C.fraseImagem}" alt="${C.frase || ''}">` : (C.frase ? `<p class="frase">${C.frase}</p>` : '')}
   </div>
   <div class="base">
     <p class="data">${diaSemana}, ${dataLonga}</p>
@@ -354,7 +355,7 @@ if (C.galeria.length) add('fotos', 'Galeria', `${titulo('Meus Momentos')}
   <div class="dots">${C.galeria.map((_, i) => `<div class="dot${i ? '' : ' ativo'}"></div>`).join('')}</div></div>`);
 
 if (C.dressCode) add('traje', 'Traje', `${titulo(C.dressCode.titulo)}<p class="texto">${C.dressCode.texto}</p>
-  ${C.dressCode.cores ? `<div class="cores">${C.dressCode.cores.map(c => `<i style="background:${c}"></i>`).join('')}</div>` : ''}`, true);
+  ${(C.dressCode.cores || []).filter(Boolean).length ? `<div class="cores">${C.dressCode.cores.filter(Boolean).map(c => `<i style="background:${c}"></i>`).join('')}</div>` : ''}`, true);
 
 if (C.presentes) add('presentes', 'Presentes', `${titulo('Sugestões de Presente')}<p class="texto">${C.presentes.texto}</p>
   <div style="margin-top:22px"><button class="btn" id="verPresentes" aria-expanded="false" aria-controls="listaPresentes">Ver sugestões de presente</button></div>
