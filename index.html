@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Convite 15 Anos — Alice</title>
+<title>Convite XV Anos — Alice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@600;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -180,7 +180,7 @@ const CONFIG = {
   videoTeaser: "",
 
   mensagem: {
-    titulo: "Meus 15 Anos",
+    titulo: "Meus XV anos",
     texto: "Como em um jardim que desabrocha, estou iniciando uma nova fase. Quero compartilhar esse momento tão especial com você!"
   },
 
@@ -312,7 +312,7 @@ const titulo = t => `<h2>${t}</h2><div class="ornamento"></div>`;
 const capa = `
 <header class="hero" id="inicio" ${C.fotoCapa ? `style="background-image:url('${C.fotoCapa}')"` : ''}>
   <div class="topo">
-    <p class="tag-15">Meus 15 Anos</p>
+    <p class="tag-15">Meus XV anos</p>
     ${C.logoNome ? `<img class="logo-png" src="${C.logoNome}" alt="${C.nome}">` : `<h1>${C.nome}</h1>`}
     <p class="frase">${C.frase}</p>
   </div>
@@ -423,7 +423,7 @@ const form = $('#formRsvp');
 if (form) form.onsubmit = e => {
   e.preventDefault();
   const f = new FormData(form), vai = f.get('presenca') === 'sim';
-  let msg = `Olá! Sou ${f.get('nome')}. ` + (vai ? `Confirmo minha presença nos 15 Anos da ${C.nome}!` : `Infelizmente não poderei comparecer.`);
+  let msg = `Olá! Sou ${f.get('nome')}. ` + (vai ? `Confirmo minha presença nos XV Anos da ${C.nome}!` : `Infelizmente não poderei comparecer.`);
   if (f.get('recado')) msg += `\nRecado: ${f.get('recado')}`;
   open(`https://wa.me/${C.rsvp.whatsapp}?text=${enc(msg)}`, '_blank');
 };
