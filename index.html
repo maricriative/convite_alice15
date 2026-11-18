@@ -121,7 +121,8 @@ footer .logo-png{max-width:260px;margin:0 auto;filter:brightness(0) invert(1)}
 #flores:not(.on) .flor{animation-play-state:paused}
 /* selo de abertura: sem animação */
 .selo-clique{position:relative;z-index:5;width:130px;height:130px;border-radius:50%;background:transparent}
-  /* aviso discreto de rolagem */
+
+/* aviso discreto de rolagem */
 .aviso-rolar{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:90;
   transform:translate(-50%,10px);display:flex;flex-direction:column;align-items:center;gap:2px;
   padding:8px 18px 6px;border-radius:99px;background:rgba(255,250,250,.72);
@@ -141,8 +142,7 @@ footer .logo-png{max-width:260px;margin:0 auto;filter:brightness(0) invert(1)}
 <nav id="menu"></nav>
 <main id="app"></main>
 <button id="musicBtn" title="Música">♪</button>
-<div id="dica" aria-hidden="true">Deslize<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
-  <div id="toast" role="status"></div>
+<div id="toast" role="status"></div>
 
 <script>
 /* ==========================================================================
@@ -439,7 +439,8 @@ if (form) form.onsubmit = e => {
   if (f.get('recado')) msg += `\nRecado: ${f.get('recado')}`;
   open(`https://wa.me/${C.rsvp.whatsapp}?text=${enc(msg)}`, '_blank');
 };
-  /* aviso "deslize para baixo": aparece 10s após abrir o convite e some sozinho */
+
+/* aviso "deslize para baixo": aparece 10s após abrir o convite e some sozinho */
 (function () {
   const el = document.createElement('div');
   el.className = 'aviso-rolar';
