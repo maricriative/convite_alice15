@@ -3,428 +3,383 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Convite XV Anos — Alice</title>
+<title>Convite XV Anos — Maria Vitória</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@600;700&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Pinyon+Script&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* Valores padrão. Para mudar as cores, edite CONFIG.paleta no script (abaixo). */
+/* Valores padrão. Para mudar cores e fontes, edite CONFIG.paleta e CONFIG.fontes no script. */
 :root{
-  --fundo:#FFF1F1; --card:#FFFAFA;
-  --amarelo:#FEE2E2; --coral:#FDA9A9; --salmao:#FDB7B7; --melancia:#FEC6C6;
-  --rosa:#FEC6C6; --destaque:#FDA9AA;
-  --ouro:#FDA9A9; --ouro-claro:#FED4D4;
-  --vinho:#B8474F; --vinho2:#D9696F;
-  --escuro:#6B2F34; --suave:#8A4A4F; --borda:#FDA9A9;
-  --glow:0 10px 26px rgba(184,71,79,.14);
-  --f-nome:'Cinzel Decorative',serif; --f-tit:'Cinzel',serif; --f-corpo:'Montserrat',sans-serif;
+  --fundo:#FBF3F5; --card:#FFFAFB; --secaoAlt:#F7E6EA;
+  --claro:#F1CCD4; --rosa:#E6A9BA; --antigo:#D299A2; --salmao:#E3A1A8;
+  --enfase:#8A4E5B; --texto:#5E2F3A; --textoSuave:#85535F; --textoClaro:#FFF7F8;
+  --f-tit:'Achetta','Italiana',serif; --f-script:'Barsela Calligraphy','Pinyon Script',cursive; --f-corpo:'Montserrat',sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth;scroll-padding-top:60px}
-body{background:var(--fundo);color:var(--escuro);font-family:var(--f-corpo);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--fundo);color:var(--texto);font-family:var(--f-corpo);font-weight:300;font-size:15px;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 body.locked{overflow:hidden}
-img,video{max-width:100%;display:block}
-button{font:inherit;cursor:pointer;border:none;background:none}
-#pattern-bg{position:fixed;inset:0;pointer-events:none;z-index:-2;background-repeat:repeat;background-position:center;opacity:.07}
+img,video,iframe{max-width:100%;display:block}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+h2{font-family:var(--f-tit);font-weight:400;font-size:2.1rem;line-height:1.2;text-align:center;color:var(--enfase)}
+h3{font-family:var(--f-tit);font-weight:400;font-size:1.5rem;color:var(--enfase)}
+h3.script,.script{font-family:var(--f-script);font-weight:400;font-size:2.3rem;line-height:1.1}
+.sub{font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;text-align:center;color:var(--textoSuave);font-weight:500}
+.orn{display:flex;align-items:center;justify-content:center;gap:10px;margin:14px auto 26px;color:var(--antigo);font-size:11px}
+.orn::before,.orn::after{content:"";width:44px;height:1px;background:var(--antigo)}
+.texto{font-size:1.02rem;color:var(--textoSuave)}
+.data{font-family:var(--f-tit);font-size:1.15rem;color:var(--enfase)}
+/* Data da capa em tamanho maior (ajuste aqui se quiser maior ou menor) */
+.data-capa{font-size:1.75rem;line-height:1.25}
 
-#flores{position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden;opacity:0;transition:opacity 1s ease}
-.flor{position:absolute;top:-8%;background-size:contain;background-repeat:no-repeat;opacity:.9;
-  filter:drop-shadow(0 2px 4px rgba(184,71,79,.3));animation:cair linear infinite}
-@keyframes cair{0%{transform:translate3d(0,0,0) rotate(0);opacity:0}10%{opacity:.9}90%{opacity:.9}
-  100%{transform:translate3d(var(--dx,50px),108vh,0) rotate(var(--rot,360deg));opacity:0}}
-
-#intro{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;
-  background:var(--coral);background-size:cover;background-position:center;
-  transition:transform 1.1s cubic-bezier(.77,0,.18,1),opacity .8s ease}
-#intro.open{transform:translateY(-100%);opacity:0}
-#videoAberturaPlayer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:10;display:none;background:#000}
-.intro-nome{font-family:var(--f-nome);font-size:clamp(2.6rem,13vw,4rem);color:#fff;text-shadow:0 2px 14px rgba(74,32,40,.55);position:relative;z-index:5}
-.intro-tag{font-family:var(--f-tit);letter-spacing:.3em;font-size:.85rem;color:var(--ouro-claro);text-shadow:0 1px 8px rgba(74,32,40,.6);text-transform:uppercase;position:relative;z-index:5}
-.selo{position:relative;z-index:5;width:112px;height:112px;border-radius:50%;
-  background:var(--amarelo);color:var(--vinho);
-  font-family:var(--f-tit);font-weight:700;font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;
-  border:3px solid #fff}
-
-#menu{position:fixed;top:0;left:0;right:0;z-index:100;height:52px;display:flex;gap:8px;align-items:center;overflow-x:auto;
-  padding:0 16px;padding-top:env(safe-area-inset-top,0px);background:var(--vinho);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--ouro);transform:translateY(-100%);transition:transform .4s;scrollbar-width:none}
-#menu::-webkit-scrollbar{display:none}
-#menu.show{transform:translateY(0)}
-#menu a{white-space:nowrap;text-decoration:none;font-size:.8rem;font-weight:600;padding:6px 14px;border-radius:99px;color:var(--ouro-claro);background:rgba(255,255,255,.08);border:1px solid var(--ouro)}
-#menu a:active{background:var(--ouro);color:var(--vinho)}
-
-.hero{min-height:100svh;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(24px,6vh,48px);text-align:center;color:var(--vinho);
-  padding:40px 20px calc(40px + env(safe-area-inset-bottom,0px));position:relative;overflow:hidden;background-size:cover;background-position:center;
-  background-color:var(--salmao)}
-.hero::before{content:"";position:absolute;inset:12px;border:1px solid var(--ouro);pointer-events:none;z-index:4;opacity:.8}
-.hero .topo,.hero .base{position:relative;z-index:3;width:100%;max-width:420px}
-.hero .topo{display:flex;flex-direction:column;align-items:center;gap:14px}
-.hero .frase-img{width:100%;max-width:300px}
-.tag-15{font-family:var(--f-tit);font-size:.85rem;letter-spacing:.3em;color:var(--vinho);text-transform:uppercase;font-weight:700;background:var(--fundo);border:1px solid var(--ouro);border-radius:99px;padding:6px 16px;display:inline-block;box-shadow:0 4px 14px rgba(184,71,79,.18)}
-.hero h1{font-family:var(--f-nome);font-size:clamp(3rem,14vw,4.6rem);line-height:1.1;margin-top:10px;color:var(--vinho);text-shadow:0 2px 10px var(--fundo)}
-.hero .logo-png{max-width:280px;margin:0 auto}
-.hero .frase{font-size:.9rem;color:var(--vinho);font-weight:500;background:var(--fundo);border:1px solid var(--ouro);border-radius:99px;padding:6px 16px;display:inline-block;box-shadow:0 4px 14px rgba(184,71,79,.18)}
-.hero .data{font-family:var(--f-tit);font-size:1rem;letter-spacing:.1em;color:var(--vinho);font-weight:700;margin-bottom:14px;text-transform:uppercase;background:var(--fundo);border:1px solid var(--ouro);border-radius:99px;padding:6px 16px;display:inline-block;box-shadow:0 4px 14px rgba(184,71,79,.18)}
-.contagem{display:flex;gap:8px;justify-content:center}
-.contagem div{min-width:58px;padding:10px 4px;background:var(--fundo);border:1px solid var(--ouro);border-radius:10px;box-shadow:0 4px 14px rgba(184,71,79,.2)}
-.contagem b{display:block;font-family:var(--f-tit);font-size:1.4rem;color:var(--vinho)}
-.contagem span{font-size:.62rem;text-transform:uppercase;color:var(--suave);letter-spacing:.05em;font-weight:600}
-
-section.sec{padding:64px 20px;position:relative}
-section.sec.alt{background:var(--amarelo)}
-.wrap{max-width:480px;margin:0 auto;position:relative;z-index:3}
-h2{font-family:var(--f-tit);font-weight:700;font-size:1.8rem;text-align:center;color:var(--vinho);letter-spacing:.05em}
-.ornamento{width:70px;height:1px;background:var(--ouro);margin:10px auto 28px;position:relative}
-.ornamento::after{content:"✦";position:absolute;left:50%;top:-11px;font-size:13px;color:var(--ouro);transform:translateX(-50%)}
-.texto{font-size:1.05rem;line-height:1.7;text-align:center;color:var(--suave)}
-.glass-card{background:var(--card);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--borda);border-radius:16px;padding:24px 20px;box-shadow:var(--glow);margin-top:20px;text-align:center}
-.foto-debutante{width:100%;max-width:300px;aspect-ratio:9/16;object-fit:cover;margin:24px auto 0;border-radius:150px 150px 16px 16px;border:3px solid var(--ouro);padding:5px;background:#fff;box-shadow:0 10px 30px rgba(184,71,79,.32)}
-.video-box{width:100%;max-width:320px;aspect-ratio:9/16;margin:0 auto;border-radius:16px;overflow:hidden;border:2px solid var(--ouro);box-shadow:var(--glow);background:#000}
-.video-box iframe,.video-box video{width:100%;height:100%;border:0;object-fit:cover}
-.carrossel{position:relative;width:100%;max-width:320px;aspect-ratio:9/16;margin:0 auto;border-radius:16px;overflow:hidden;border:2px solid var(--ouro);box-shadow:var(--glow)}
-.slide{position:absolute;inset:0;opacity:0;transition:opacity .8s}
-.slide.ativo{opacity:1;z-index:1}
-.slide img{width:100%;height:100%;object-fit:cover}
-.dots{position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:10;display:flex;flex-direction:column;gap:8px}
-.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.75);transition:.3s}
-.dot.ativo{background:var(--ouro);height:16px;border-radius:8px}
-.botoes{display:flex;flex-direction:column;gap:10px;margin-top:18px}
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 20px;border-radius:10px;
-  background:var(--vinho);color:#fff;text-decoration:none;font-weight:600;font-size:.9rem;
-  text-transform:uppercase;letter-spacing:.08em;box-shadow:0 6px 18px rgba(184,71,79,.38);transition:transform .2s}
+section.sec{padding:64px 22px;position:relative;overflow:hidden}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.veu{position:absolute;inset:0;z-index:1}
+.wrap,.capa-card{position:relative;z-index:2}
+section.alt{background:var(--secaoAlt)}
+.wrap{max-width:480px;margin:0 auto;text-align:center}
+.ev{margin-top:34px}
+.ev+.ev{padding-top:34px;border-top:1px solid var(--antigo)}
+.ev-nome{font-family:var(--f-tit);font-weight:400;font-size:1.9rem;line-height:1.15;color:var(--enfase)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 28px;border-radius:99px;border:1px solid var(--enfase);color:var(--enfase);
+  text-decoration:none;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;font-weight:500;transition:transform .2s}
 .btn:active{transform:scale(.97)}
-.btn.vazado{background:transparent;color:var(--vinho);border:1.5px solid var(--coral);box-shadow:none}
-.cores{display:flex;gap:12px;justify-content:center;margin-top:18px}
-.cores i{width:36px;height:36px;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.btn.cheio{background:var(--enfase);color:var(--textoClaro);width:100%}
+.foto{width:100%;max-width:280px;aspect-ratio:3/4;object-fit:cover;margin:24px auto 0;border:3px solid var(--antigo)}
+
+/* Abertura */
+#intro{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;color:var(--enfase);
+  background:var(--claro) center/cover no-repeat;transition:transform 1.1s cubic-bezier(.77,0,.18,1),opacity .8s}
+#intro.open{transform:translateY(-100%);opacity:0}
+#introVid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:10;display:none;background:#000}
+.intro-nome{font-family:var(--f-script);font-size:clamp(3rem,16vw,4.6rem);line-height:1}
+.selo{width:104px;height:104px;border-radius:50%;background:var(--enfase);color:var(--textoClaro);border:3px solid var(--card);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;font-weight:500}
+.selo-clique{width:130px;height:130px;border-radius:50%;background:transparent}
+
+#menu{position:fixed;top:0;left:0;right:0;z-index:100;height:52px;display:flex;gap:8px;align-items:center;overflow-x:auto;padding:0 16px;padding-top:env(safe-area-inset-top,0px);
+  background:var(--enfase);transform:translateY(-100%);transition:transform .4s;scrollbar-width:none}
+#menu::-webkit-scrollbar{display:none}
+#menu.show{transform:none}
+#menu a{white-space:nowrap;text-decoration:none;font-size:.78rem;font-weight:500;padding:6px 14px;border-radius:99px;color:var(--claro);border:1px solid var(--antigo)}
+
+/* Capa */
+.hero{position:relative;overflow:hidden;min-height:100svh;display:flex;align-items:center;justify-content:center;padding:36px 20px;background:var(--fundo) center/cover no-repeat}
+.capa-card{width:100%;max-width:400px;text-align:center;padding:10px}
+.capa-card .nome{font-family:var(--f-script);font-size:clamp(2.8rem,14vw,4rem);line-height:1.05;color:var(--enfase);margin:8px 0}
+.frase{font-family:var(--f-tit);font-size:1.08rem;color:var(--texto);margin:16px 0 4px;line-height:1.45}
+
+/* Bloco escuro (contagem) com borda de renda e laço */
+.escuro{background:var(--enfase);color:var(--textoClaro);padding:90px 22px}
+.escuro h2{color:var(--textoClaro)}
+.escuro .sub{color:var(--claro)}
+.escuro::before,.escuro::after{content:"";position:absolute;left:0;right:0;height:16px;background:var(--renda,none) repeat-x;background-size:auto 100%;z-index:3}
+.escuro::before{top:0}
+.escuro::after{bottom:0;transform:scaleY(-1)}
+.cd{display:flex;justify-content:center;gap:16px}
+.cd b{display:block;font-family:var(--f-tit);font-weight:400;font-size:2.1rem;line-height:1}
+.cd span{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--claro)}
+
+/* Linha do tempo */
+.tl{position:relative;text-align:left}
+.tl::before{content:"";position:absolute;left:103px;top:10px;bottom:10px;width:1px;background:var(--antigo)}
+.tl-i{display:grid;grid-template-columns:84px 18px 1fr;gap:10px;margin-bottom:26px;align-items:start}
+.tl-h{font-family:var(--f-tit);font-size:1.35rem;color:var(--enfase);text-align:right;line-height:1.1}
+.tl-h small{display:block;font-family:var(--f-corpo);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--textoSuave)}
+.tl-d{color:var(--antigo);font-size:.8rem;text-align:center}
+.tl-t b{display:block;font-family:var(--f-tit);font-weight:400;font-size:1.15rem;color:var(--enfase)}
+.tl-t span{font-size:.85rem;color:var(--textoSuave)}
+
+/* Confirmar presença */
+.rsvp-ico{width:84px;height:84px;border-radius:50%;background:var(--enfase);color:var(--textoClaro);display:grid;place-items:center;margin:8px auto 4px;border:4px solid var(--claro)}
+.rsvp-ico svg{width:40px;height:40px}
+.rsvp-ico img{width:44px;height:44px;object-fit:contain}
 .revelar{max-height:0;overflow:hidden;opacity:0;transition:max-height .8s ease,opacity .6s ease}
-.revelar.aberto{max-height:700px;opacity:1}
-.lista{list-style:none;text-align:center}
-.lista li{padding:12px 0;border-bottom:1px dashed var(--borda);font-weight:500;color:var(--escuro)}
-.lista li:last-child{border:none}
-form{display:grid;gap:14px;margin-top:10px;text-align:left}
-label{display:grid;gap:4px;font-size:.85rem;color:var(--vinho);font-weight:600}
-input,select,textarea{font:inherit;padding:12px;border:1px solid var(--borda);border-radius:8px;background:#fff;color:var(--escuro);width:100%}
-textarea{min-height:80px}
-footer{background:var(--vinho);color:#fff;text-align:center;padding:48px 20px calc(48px + env(safe-area-inset-bottom,0px));border-top:2px solid var(--ouro);position:relative;z-index:3}
-footer .nome{font-family:var(--f-nome);font-size:2.8rem}
-/* logo do rodapé em branco para aparecer sobre o fundo vinho */
-footer .logo-png{max-width:260px;margin:0 auto;filter:brightness(0) invert(1)}
-#musicBtn{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:120;width:48px;height:48px;border-radius:50%;
-  border:1.5px solid var(--ouro);background:var(--vinho);color:var(--amarelo);font-size:1.2rem;display:grid;place-items:center;box-shadow:0 4px 20px rgba(0,0,0,.25)}
+.revelar.aberto{max-height:1000px;opacity:1}
+form{display:grid;gap:14px;margin-top:18px;text-align:left}
+label{display:grid;gap:4px;font-size:.8rem;color:var(--enfase);font-weight:500}
+input,select,textarea{font:inherit;padding:10px 2px;border:none;border-bottom:1px solid var(--antigo);border-radius:0;background:transparent;color:var(--texto);width:100%;outline:none}
+textarea{min-height:70px}
+
+footer{background:var(--enfase);color:var(--textoClaro);text-align:center;padding:52px 20px calc(52px + env(safe-area-inset-bottom,0px))}
+footer .script{font-size:2.8rem}
+footer p{letter-spacing:.2em;font-size:.8rem;color:var(--claro)}
+#musicBtn{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:120;width:46px;height:46px;border-radius:50%;
+  border:1.5px solid var(--antigo);background:var(--enfase);color:var(--textoClaro);font-size:1.1rem;display:grid;place-items:center}
 #musicBtn.tocando{animation:giro 6s linear infinite}
 @keyframes giro{to{transform:rotate(360deg)}}
-#toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%) translateY(20px);background:var(--vinho);color:#fff;padding:10px 20px;border-radius:999px;opacity:0;pointer-events:none;transition:.3s;z-index:300;font-size:.88rem}
-#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+#ytwrap{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .rv{opacity:0;transform:translateY(20px);transition:opacity .8s,transform .8s}
 .rv.in{opacity:1;transform:none}
-#flores.on{opacity:1}
-#flores:not(.on) .flor{animation-play-state:paused}
-/* selo de abertura: sem animação */
-.selo-clique{position:relative;z-index:5;width:130px;height:130px;border-radius:50%;background:transparent}
+.logo-nome{display:block;width:80%;max-width:300px;height:auto;margin:10px auto}
+.logo-nome.branca{filter:brightness(0) invert(1)}
 </style>
 </head>
 <body class="locked">
-<div id="pattern-bg"></div>
-<div id="flores"></div>
-<audio id="musica" loop preload="auto"></audio>
+<div id="ytwrap"><div id="yt"></div></div>
 <div id="intro" role="dialog"></div>
 <nav id="menu"></nav>
 <main id="app"></main>
 <button id="musicBtn" title="Música">♪</button>
-<div id="toast" role="status"></div>
 
 <script>
 /* ==========================================================================
-   ✏️ CONFIGURAÇÕES DO CONVITE — ALICE (TEMA JARDIM)
+   ✏️ CONFIGURAÇÕES — XV ANOS MARIA VITÓRIA
+   FUNDO DAS SEÇÕES: em cada seção, "fundo" aceita imagem, GIF ou vídeo .mp4 (o vídeo toca sozinho, mudo e em loop).
+   "veu" (de 0 a 1) cobre o fundo com a cor da seção para dar leitura ao texto: 0 = sem véu, 0.5 = metade, 1 = cobre tudo.
    ========================================================================== */
 const CONFIG = {
-  nome: "Alice",
-  logoNome: "Venha florescer comigo nesta noite especial! (1).png",
-  fundoPattern: "https://i.imgur.com/sFYS6jX.jpeg",
+  nome: "Maria Vitória",
+  logoNome: "https://github.com/maricriative/convite_MariaVitoria15Anos/blob/main/ID%20VISUAL%20MARIA%20VITORIA_Prancheta%201.png?raw=true",            // opcional: imagem PNG da logo do nome (substitui o texto na abertura e na capa)
+  logoRodape: "",          // opcional: OUTRA logo do nome só para o rodapé (acima da hashtag). Vazio = usa a logoNome
+  logoRodapeBranca: true,  // true = a logo do rodapé fica branca sobre o fundo escuro; false = cores originais
+  hashtag: "#MariaVitóriaXV",
+  cidade: "São Francisco - MG",
+  celebracao: "Aniversário de Maria Vitória e de seu Vô Tone Veloso",
 
-  /* 🎨 PALETA — troque qualquer cor aqui (hex). Apague uma linha para voltar ao padrão. */
+  /* 🎨 PALETA (identidade visual: #D299A2, #E6A9BA, #F1CCD4, #E3A1A8). Troque qualquer cor. */
   paleta: {
-    fundo:       "#FFF1F1",  // fundo geral da página
-    card:        "#FFFAFA",  // fundo dos cartões
-    amarelo:     "#FEE2E2",  // seções alternadas e selo
-    coral:       "#FDA9A9",  // fundo da abertura / botão vazado
-    salmao:      "#FDB7B7",  // fundo da capa (sem foto)
-    melancia:    "#FEC6C6",  // flores
-    rosa:        "#FEC6C6",  // hashtag
-    destaque:    "#FDA9AA",  // horário do local e da programação (antes terracota)
-    ouro:        "#FDA9A9",  // bordas e ornamentos
-    "ouro-claro":"#FED4D4",  // textos claros no menu
-    vinho:       "#d77d6a",  // cor principal: botões, títulos, menu, rodapé
-    vinho2:      "#D9696F",  // vinho secundário
-    escuro:      "#6B2F34",  // texto principal
-    suave:       "#8A4A4F",  // texto secundário
-    borda:       "#FDA9A9"   // bordas de cartões e campos
+    fundo:       "#FBF3F5",  // fundo da página
+    card:        "#FFFAFB",  // cartões e molduras
+    secaoAlt:    "#F7E6EA",  // seções alternadas
+    claro:       "#F1CCD4",  // rosa claro: renda, detalhes sobre fundo escuro
+    rosa:        "#E6A9BA",  // filete interno das molduras
+    antigo:      "#D299A2",  // bordas, linhas e ornamentos
+    salmao:      "#E3A1A8",  // reserva (uso livre)
+    enfase:      "#8A4E5B",  // títulos, botões, menu, blocos escuros
+    texto:       "#5E2F3A",  // texto principal
+    textoSuave:  "#85535F",  // texto secundário
+    textoClaro:  "#FFF7F8"   // texto sobre fundo escuro
   },
+
+  /* 🔤 FONTES: Achetta (títulos) e Barsela Calligraphy (nome/script).
+     Se tiver os arquivos, coloque o nome aqui (.woff2, .ttf ou .otf, na mesma pasta do convite).
+     Sem os arquivos, o convite usa fontes parecidas (Italiana e Pinyon Script). */
+  fontes: { arquivoTitulo: "", arquivoScript: "" },
+
+  /* Borda de renda: deixe "" para a renda desenhada, ou coloque uma imagem repetível (PNG) da identidade visual */
+  renda: "",
 
   /* ✉️ ABERTURA */
-  imagemAbertura: "Recreate_envelope_with_stamp_and…_caa9f46a.jpg",
-  videoAbertura: "Aba_abre_com_fumaça_dourada_36db9bd2.mp4",
+  abertura: { usar: true, imagem: "", video: "", texto: "Toque para abrir" },
 
-  frase: "",                // texto da frase (deixe "" se usar imagem)
-  fraseImagem: "",          // OU URL/arquivo de uma imagem com a frase (tem prioridade sobre o texto)
-  dataHora: "2027-01-23T20:00:00",   // ⚠️ AJUSTE O HORÁRIO
-  cidade: "Brasília - DF",
+  /* 🎵 MÚSICA: arquivo mp3 (prioridade) ou link do YouTube */
+  musica: "",
+  youtube: "https://youtu.be/6_LsCe4jUF8?is=hUHBTJKa1Hb2_wkU",
 
-  /* 🎵 Música de fundo (arquivo mp3 na mesma pasta do convite) */
-  musica: "MusicaAlice.mp3",
-  usarTelaDeAbertura: true,
-
-  fotoCapa: "https://github.com/maricriative/convite_alice15/blob/main/An_image_with_elements_d73ee96d.jpg?raw=true",
-  fotoDebutante: "https://raw.githubusercontent.com/maricriative/convite_alice15/59325ad54226a30daa46d73f6097348282619cb8/Foto%20de%20Deyvison%20Marlon%20(4).jpg",
-
-  /* 🎬 VÍDEO: preencha UM dos dois. O mp4 tem prioridade. */
-  videoTeaserMp4: "VID_20261117_070450_705_bsl (1).mp4",
-  videoTeaser: "",
+  capa: {
+    frase: "Nada acontece sem antes existir um sonho, e na idade dos sonhos tudo é possível!",
+    fundo: "https://github.com/maricriative/convite_MariaVitoria15Anos/blob/main/Botanical_invitation_background_%E2%80%A6_4bbde213.jpg?raw=true", veu: 0
+  },
+  dataTexto: "",   // opcional: sobrescreve o texto da data na capa (ex.: "08 e 09 de Janeiro de 2027")
 
   mensagem: {
-    titulo: "Alice XV Anos",
-    texto: "Como em um jardim que desabrocha, estou iniciando uma nova fase. Quero compartilhar esse momento tão especial com você!"
+    titulo: "Maria Vitória XV anos",
+    texto: "Nunca deixe de sonhar, pois se podemos sonhar, também podemos tornar nossos sonhos realidade.",
+    foto: "",   // foto da debutante (retangular)
+    fundo: "", veu: 0
   },
 
-  local: {
-    titulo: "Recepção & Festa",
-    horario: "20h00",
-    espaco: "Mansão Brilhante",
-    endereco: "",
-    mapsUrl: "https://maps.app.goo.gl/8oMwf5mvcamRDGK49"
-  },
+  /* Conta até o primeiro evento; use null para ocultar.
+     fundo: imagem, GIF ou vídeo .mp4 | veu: 0 a 1 (cobre o fundo com a cor do bloco para dar leitura aos números) */
+  contagem: { subtitulo: "Faltam", titulo: "Contagem regressiva", fundo: "", veu: 0.4 },
 
-  programacao: [],
-
-  dressCode: {
-    titulo: "Dress Code",
-    texto: "Traje Esporte Fino."
-  },
-
-  galeria: [
-    "https://github.com/maricriative/convite_alice15/blob/main/Foto%20de%20Deyvison%20Marlon%20(3).jpg?raw=true",
-    "https://github.com/maricriative/convite_alice15/blob/main/Foto%20de%20Deyvison%20Marlon%20(1).jpg?raw=true",
-    "https://github.com/maricriative/convite_alice15/blob/main/Foto%20de%20Deyvison%20Marlon.jpg?raw=true",
-    "https://github.com/maricriative/convite_alice15/blob/main/Foto%20de%20Deyvison%20Marlon%20(2).jpg?raw=true"
+  /* 📅 EVENTOS (alimentam a linha do tempo, os cartões de local e a contagem) */
+  eventos: [
+    { titulo: "Missa", dataHora: "2027-01-08T19:00:00", espaco: "Igreja Sagrada Família", endereco: "", mapsUrl: "" },
+    { titulo: "Baile", dataHora: "2027-01-09T20:00:00", espaco: "OAB São Francisco-MG",
+      endereco: "Av. Montes Claros, 2550, João Aguiar - São Francisco",
+      mapsUrl: "https://maps.app.goo.gl/kBrdsFXSnrKq6bA29?g_st=iw" }
   ],
 
-  presentes: {
-    texto: "Sua presença é o meu maior presente!",
-    itens: [
-      "Roupas — tamanho P",
-      "Calçados — nº 36",
-      "Maquiagem",
-      "Perfumes",
-      "Acessórios de prata"
-    ]
+  /* Linha do tempo: por padrão usa os eventos. Para itens próprios: itens: [{hora:"19h00", dia:"08 jan", titulo:"", descricao:""}] */
+  programacao: { titulo: "O Grande Dia", subtitulo: "Programação", itens: null },
+  local: { titulo: "Onde & Quando" },
+
+  dressCode: { titulo: "Dress Code", texto: "" },   // preencha "texto" para exibir a seção
+
+  hospedagem: {
+    titulo: "Onde se Hospedar",
+    texto: "Sugestões de hotel e pousada para hospedagem:",
+    lista: [
+      { nome: "Hotel Supremo", link: "https://www.hotelsupremo.com.br/", botao: "Visitar site", imagem: "" },
+      { nome: "Hotel Moriah", link: "https://www.instagram.com/hotelmoriah_/", botao: "Ver Instagram", imagem: "" }
+    ],
+    fundo: "https://github.com/maricriative/convite_MariaVitoria15Anos/blob/main/Vertical_invitation_background_t%E2%80%A6_59c6b899.jpg?raw=true", veu: 0
   },
 
-  rsvp: { whatsapp: "5561985633994", prazo: "10 de Janeiro" },
+  presentes: { titulo: "Presentes", texto: "", itens: [] },   // preencha "texto" ou "itens" para exibir
 
-  hashtag: "#AliceXV"
+  rsvp: {
+    titulo: "Confirmar Presença",
+    chamada: "Toque no ícone para confirmar",
+    iconeImagem: "",   // opcional: imagem PNG/SVG própria para o ícone. Vazio = usa o ícone de confirmação (✓) padrão
+    mensagem: "Em breve a nossa assessoria entrará em contato para confirmar a sua presença e a dos seus acompanhantes:",
+    whatsapp: "61986112425",   // ⚠️ número com DDI e DDD, ex.: "5538999999999". Vazio = mostra só a mensagem, sem formulário
+    fundo: "", veu: 0
+  }
 };
 
 /* ==========================================================================
    ⚙️ LÓGICA
    ========================================================================== */
-const $ = (s, r = document) => r.querySelector(s);
-const C = CONFIG, enc = encodeURIComponent;
+const $ = (s, r = document) => r.querySelector(s), C = CONFIG, enc = encodeURIComponent, root = document.documentElement;
+Object.entries(C.paleta || {}).forEach(([k, v]) => v && root.style.setProperty('--' + k, v));
 
-/* 🎨 Aplica a paleta */
-const P = C.paleta || {};
-Object.entries(P).forEach(([k, v]) => { if (v) document.documentElement.style.setProperty('--' + k, v); });
-const cor = (k, padrao) => P[k] || padrao;
+/* fontes personalizadas */
+const F = C.fontes || {}; let ff = '';
+if (F.arquivoTitulo) ff += `@font-face{font-family:'Achetta';src:url("${F.arquivoTitulo}")}`;
+if (F.arquivoScript) ff += `@font-face{font-family:'Barsela Calligraphy';src:url("${F.arquivoScript}")}`;
+if (ff) { const st = document.createElement('style'); st.textContent = ff; document.head.appendChild(st); }
 
-const data = new Date(C.dataHora);
-const fmt = o => new Intl.DateTimeFormat('pt-BR', o).format(data);
+/* renda opcional: imagem repetível em faixa reta no topo e no rodapé do bloco escuro */
+if (C.renda) root.style.setProperty('--renda', `url("${C.renda}")`);
+
+/* utilitários */
+const nomeHTML = (cls, branca, logo) => { const L = logo || C.logoNome; return L ? `<img class="logo-nome${branca && C.logoRodapeBranca !== false ? ' branca' : ''}" src="${L}" alt="${C.nome}">` : `<div class="${cls}">${C.nome}</div>`; };
+const extrairId = u => { const m = (u || '').match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/); return m ? m[1] : null; };
+const fm = (d, o) => new Intl.DateTimeFormat('pt-BR', o).format(d);
 const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
-const dataLonga = fmt({ day: 'numeric', month: 'long', year: 'numeric' });
-const diaSemana = cap(fmt({ weekday: 'long' }));
+const hora = d => fm(d, { hour: '2-digit', minute: '2-digit' }).replace(':', 'h');
+const ev = C.eventos, d0 = new Date(ev[0].dataHora);
+const dataTexto = C.dataTexto || (ev.map(e => fm(new Date(e.dataHora), { day: '2-digit' })).join(' e ') + ' de ' + cap(fm(d0, { month: 'long' })) + ' de ' + fm(d0, { year: 'numeric' }));
 document.title = `${C.nome} — XV Anos`;
-if (C.fundoPattern) $('#pattern-bg').style.backgroundImage = `url("${C.fundoPattern}")`;
 
-/* 🌸 Flores (usam as cores da paleta) */
-function florSVG(c, miolo) {
-  let p = '';
-  for (let i = 0; i < 5; i++) p += `<ellipse cx='50' cy='27' rx='15' ry='24' fill='${c}' transform='rotate(${i * 72} 50 50)'/>`;
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>${p}<circle cx='50' cy='50' r='9' fill='${miolo}'/></svg>`;
-  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+/* fundo de seção: imagem, gif ou vídeo (+ véu opcional) */
+const fundoHTML = (c, cor) => {
+  if (!c || !c.fundo) return '';
+  const s = c.fundo, el = /\.(mp4|webm|mov|m4v)(\?|$)/i.test(s) ? `<video class="bg" src="${s}" autoplay muted loop playsinline></video>` : `<img class="bg" src="${s}" alt="">`;
+  return el + (c.veu > 0 ? `<div class="veu" style="background:${cor};opacity:${c.veu}"></div>` : '');
+};
+
+/* 🎵 Música */
+let audio = null, yt = null, tocando = false, quer = false;
+const mb = $('#musicBtn');
+if (C.musica) { audio = new Audio(C.musica); audio.loop = true; audio.volume = .7; }
+else if (extrairId(C.youtube)) { const t = document.createElement('script'); t.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(t); }
+else mb.style.display = 'none';
+function onYouTubeIframeAPIReady() {
+  const id = extrairId(C.youtube);
+  yt = new YT.Player('yt', { videoId: id, playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: id, playsinline: 1 }, events: { onReady: () => { if (quer) tocar(); } } });
 }
-const pC = cor('coral', '#FDA9A9'), pM = cor('melancia', '#FEC6C6'), pS = cor('salmao', '#FDB7B7'),
-      pO = cor('ouro-claro', '#FED4D4'), pF = cor('fundo', '#FFF1F1'), pA = cor('amarelo', '#FEE2E2');
-const tipos = [[pC, pF], [pM, pC], [pS, pF], [pO, pC], [pC, pA], [pM, '#FFFFFF']].map(t => florSVG(...t));
-(function criarFlores() {
-  const box = $('#flores');
-  for (let i = 0; i < 26; i++) {
-    const f = document.createElement('div'); f.className = 'flor';
-    const t = Math.random() * 14 + 14;
-    f.style.cssText = `width:${t}px;height:${t}px;left:${Math.random() * 100}%;background-image:${tipos[i % tipos.length]};` +
-      `animation-duration:${Math.random() * 7 + 8}s;animation-delay:${-Math.random() * 12}s;` +
-      `--dx:${(Math.random() - .5) * 140}px;--rot:${(Math.random() > .5 ? 1 : -1) * (240 + Math.random() * 240)}deg`;
-    box.appendChild(f);
-  }
-})();
-
-const extrairId = u => { if (!u) return null; const m = u.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/); return m ? m[1] : null; };
-
-/* 🎵 Música de fundo (mp3) */
-const audio = $('#musica'), musicBtn = $('#musicBtn');
-let tocando = false;
-if (C.musica) audio.src = C.musica; else musicBtn.style.display = 'none';
-audio.volume = 0.7;
 function tocar() {
-  if (!C.musica) return;
-  audio.play().then(() => { tocando = true; musicBtn.classList.add('tocando'); }).catch(() => {});
+  quer = true;
+  if (audio) audio.play().catch(() => {}); else if (yt && yt.playVideo) yt.playVideo(); else return;
+  mb.classList.add('tocando'); tocando = true;
 }
-function pausar() { audio.pause(); tocando = false; musicBtn.classList.remove('tocando'); }
-musicBtn.onclick = () => tocando ? pausar() : tocar();
+function pausar() { quer = false; if (audio) audio.pause(); else if (yt && yt.pauseVideo) yt.pauseVideo(); mb.classList.remove('tocando'); tocando = false; }
+mb.onclick = () => tocando ? pausar() : tocar();
 
 /* ✉️ Abertura */
-const intro = $('#intro');
-function entrar() {
-  intro.classList.add('open'); document.body.classList.remove('locked');
-  tocar();
-  setTimeout(() => intro.remove(), 1100);
-}
-if (C.usarTelaDeAbertura) {
-  const vid = C.videoAbertura ? `<video id="videoAberturaPlayer" src="${C.videoAbertura}" playsinline></video>` : '';
+const intro = $('#intro'), A = C.abertura || {};
+function entrar() { intro.classList.add('open'); document.body.classList.remove('locked'); tocar(); setTimeout(() => intro.remove(), 1100); }
+if (A.usar !== false) {
   let aberto = false;
   const abrir = () => {
-    if (aberto) return; aberto = true;
-    tocar(); /* inicia a música já no clique (exigência dos navegadores) */
-    const v = $('#videoAberturaPlayer');
+    if (aberto) return; aberto = true; tocar();
+    const v = $('#introVid');
     if (v) { v.style.display = 'block'; v.play(); v.onended = v.onclick = entrar; } else entrar();
   };
-  if (C.imagemAbertura) {
-    intro.style.backgroundImage = `url("${C.imagemAbertura}")`;
-    intro.innerHTML = `${vid}<button class="selo-clique" id="abrir" aria-label="Abrir Convite"></button>`;
-    intro.onclick = abrir;
-  } else {
-    intro.innerHTML = `${vid}<p class="intro-tag">XV Anos</p><p class="intro-nome">${C.nome}</p><button class="selo" id="abrir" aria-label="Abrir Convite">Abrir</button>`;
-  }
+  if (A.imagem) intro.style.backgroundImage = `url("${A.imagem}")`;
+  const vid = A.video ? `<video id="introVid" src="${A.video}" playsinline></video>` : '';
+  intro.innerHTML = A.imagem
+    ? `${vid}<button class="selo-clique" id="abrir" aria-label="Abrir convite"></button>`
+    : `${vid}<p class="sub">XV Anos</p>${nomeHTML('intro-nome')}<button class="selo" id="abrir">${A.texto || 'Abrir'}</button>`;
+  if (A.imagem) intro.onclick = abrir;
   $('#abrir').onclick = e => { e.stopPropagation(); abrir(); };
 } else { intro.remove(); document.body.classList.remove('locked'); }
 
 /* Seções */
-const secoes = [], menuItens = [];
-const add = (id, rot, html, alt) => { secoes.push(`<section class="sec${alt ? ' alt' : ''}" id="${id}"><div class="wrap">${html}</div></section>`); if (rot) menuItens.push([id, rot]); };
-const titulo = t => `<h2>${t}</h2><div class="ornamento"></div>`;
+const secoes = [], menu = [];
+const CFG = { convite: C.mensagem, contagem: C.contagem, dia: C.programacao, local: C.local, traje: C.dressCode, hospedagem: C.hospedagem, presentes: C.presentes, confirmar: C.rsvp };
+const sec = (id, rot, html, cls = '') => {
+  const cor = cls.includes('escuro') ? 'var(--enfase)' : cls.includes('alt') ? 'var(--secaoAlt)' : 'var(--fundo)';
+  secoes.push(`<section class="sec ${cls}" id="${id}">${fundoHTML(CFG[id], cor)}<div class="wrap">${html}</div></section>`); if (rot) menu.push([id, rot]);
+};
+const tit = (t, s) => `${s ? `<p class="sub">${s}</p>` : ''}<h2>${t}</h2><div class="orn">♥</div>`;
+/* ícone de confirmação (check dentro de um círculo) */
+const ICONE_OK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M7.5 12.5l3.2 3.2 5.8-6.4"/></svg>`;
 
-const capa = `
-<header class="hero" id="inicio" ${C.fotoCapa ? `style="background-image:url('${C.fotoCapa}')"` : ''}>
-  <div class="topo">
-    <p class="tag-15">Meus XV anos</p>
-    ${C.logoNome ? `<img class="logo-png" src="${C.logoNome}" alt="${C.nome}">` : `<h1>${C.nome}</h1>`}
-    ${C.fraseImagem ? `<img class="frase-img" src="${C.fraseImagem}" alt="${C.frase || ''}">` : (C.frase ? `<p class="frase">${C.frase}</p>` : '')}
-  </div>
-  <div class="base">
-    <p class="data">${diaSemana}, ${dataLonga}</p>
-    <div id="contagem"></div>
-  </div>
-</header>`;
+const capa = `<header class="hero" id="inicio">${fundoHTML(C.capa, 'var(--fundo)')}
+  <div class="capa-card">
+    <p class="sub">${C.celebracao}</p>
+    ${nomeHTML('nome')}
+    <p class="sub">XV Anos</p>
+    <p class="frase">“${C.capa.frase}”</p>
+    <div class="orn">♥</div>
+    <p class="data data-capa">${dataTexto}</p>
+    <p class="sub" style="margin-top:6px">${C.cidade}</p>
+    
+  </div></header>`;
 
-if (C.mensagem) add('convite', 'A Festa', `${titulo(C.mensagem.titulo)}<p class="texto">${C.mensagem.texto}</p>
-  ${C.fotoDebutante ? `<img class="foto-debutante" src="${C.fotoDebutante}" alt="${C.nome}">` : ''}`);
+const M = C.mensagem;
+if (M) sec('convite', 'Convite', `${tit(M.titulo)}<p class="texto">${M.texto}</p>${M.foto ? `<img class="foto" src="${M.foto}" alt="${C.nome}">` : ''}`);
 
-const vId = extrairId(C.videoTeaser);
-if (C.videoTeaserMp4 || vId) add('video', 'Vídeo', `${titulo('Teaser')}
-  <div class="video-box">${C.videoTeaserMp4
-    ? `<video src="${C.videoTeaserMp4}" controls playsinline preload="metadata"></video>`
-    : `<iframe src="https://www.youtube.com/embed/${vId}?rel=0" allowfullscreen loading="lazy"></iframe>`}</div>`);
+if (C.contagem) sec('contagem', 'Contagem', `<p class="sub">${C.contagem.subtitulo || ''}</p><h2>${C.contagem.titulo}</h2><div id="cd" class="cd" style="margin-top:22px"></div>`, 'escuro');
 
-if (C.local) add('local', 'Local', `${titulo('Onde & Quando')}
-  <p class="texto">${diaSemana}, ${dataLonga}</p>
-  <div class="glass-card">
-    <h3 style="font-family:var(--f-tit);font-size:1.4rem">${C.local.titulo}</h3>
-    <p style="color:var(--destaque);font-weight:700;font-size:1.1rem;margin:6px 0">${C.local.horario}</p>
-    <p style="font-weight:600">${C.local.espaco}</p>
-    ${C.local.endereco ? `<p style="font-size:.88rem;opacity:.85">${C.local.endereco}</p>` : ''}
-    <div class="botoes">
-      <a class="btn" href="${C.local.mapsUrl}" target="_blank" rel="noopener">Ver no Mapa</a>
-      <a class="btn vazado" href="https://waze.com/ul?q=${enc(C.local.espaco + ' ' + (C.local.endereco || C.cidade))}&navigate=yes" target="_blank" rel="noopener">Waze</a>
-    </div>
-  </div>`);
+const P = C.programacao;
+if (P) {
+  const itens = P.itens || ev.map(e => { const d = new Date(e.dataHora); return { hora: hora(d), dia: fm(d, { day: '2-digit', month: 'short' }).replace('.', ''), titulo: e.titulo, descricao: e.espaco }; });
+  sec('dia', 'Programação', `${tit(P.titulo, P.subtitulo)}<div class="tl">${itens.map(i => `<div class="tl-i"><div class="tl-h">${i.hora}<small>${i.dia || ''}</small></div><div class="tl-d">♥</div><div class="tl-t"><b>${i.titulo}</b><span>${i.descricao || ''}</span></div></div>`).join('')}</div>`);
+}
 
-if (C.programacao.length) add('programacao', 'Programação', `${titulo('Programação')}
-  <div class="glass-card" style="text-align:left">${C.programacao.map(p => `
-    <div style="display:flex;gap:16px;margin-bottom:12px;align-items:center">
-      <span style="color:var(--destaque);font-family:var(--f-tit);font-weight:700">${p.hora}</span><span style="font-weight:500">${p.titulo}</span></div>`).join('')}</div>`, true);
+if (C.local) sec('local', 'Local', tit(C.local.titulo) + ev.map(e => {
+  const d = new Date(e.dataHora), q = [e.espaco, e.endereco, C.cidade].filter(Boolean).join(' ');
+  return `<div class="ev"><p class="sub">${e.titulo}</p><h3 class="ev-nome">${e.espaco}</h3>
+    <p class="data">${cap(fm(d, { weekday: 'long' }))}, ${fm(d, { day: 'numeric', month: 'long' })} · ${hora(d)}</p>
+    ${e.endereco ? `<p class="texto" style="margin-top:6px">${e.endereco}</p>` : ''}
+    <a class="btn" style="margin-top:16px" href="${e.mapsUrl || 'https://www.google.com/maps/search/?api=1&query=' + enc(q)}" target="_blank" rel="noopener">Como chegar</a></div>`;
+}).join(''), 'alt');
 
-if (C.galeria.length) add('fotos', 'Galeria', `${titulo('Meus Momentos')}
-  <div class="carrossel"><div>${C.galeria.map((g, i) => `<div class="slide${i ? '' : ' ativo'}"><img src="${g}" alt="Momento ${i + 1}" loading="lazy"></div>`).join('')}</div>
-  <div class="dots">${C.galeria.map((_, i) => `<div class="dot${i ? '' : ' ativo'}"></div>`).join('')}</div></div>`);
+const D = C.dressCode;
+if (D && D.texto) sec('traje', 'Traje', `${tit(D.titulo)}<p class="texto">${D.texto}</p>`);
 
-if (C.dressCode) add('traje', 'Traje', `${titulo(C.dressCode.titulo)}<p class="texto">${C.dressCode.texto}</p>
-  ${(C.dressCode.cores || []).filter(Boolean).length ? `<div class="cores">${C.dressCode.cores.filter(Boolean).map(c => `<i style="background:${c}"></i>`).join('')}</div>` : ''}`, true);
+const H = C.hospedagem;
+if (H) sec('hospedagem', 'Hospedagem', `${tit(H.titulo)}<p class="texto">${H.texto}</p>` + H.lista.map(h => `<div class="ev">${h.imagem ? `<img src="${h.imagem}" alt="${h.nome}" style="margin-bottom:14px">` : ''}<h3>${h.nome}</h3><a class="btn" style="margin-top:14px" href="${h.link}" target="_blank" rel="noopener">${h.botao || 'Saiba mais'}</a></div>`).join(''), D && D.texto ? '' : '');
 
-if (C.presentes) add('presentes', 'Presentes', `${titulo('Sugestões de Presente')}<p class="texto">${C.presentes.texto}</p>
-  <div style="margin-top:22px"><button class="btn" id="verPresentes" aria-expanded="false" aria-controls="listaPresentes">Ver sugestões de presente</button></div>
-  <div class="revelar" id="listaPresentes"><div class="glass-card"><ul class="lista">${C.presentes.itens.map(i => `<li>${i}</li>`).join('')}</ul></div></div>`);
+const G = C.presentes;
+if (G && (G.texto || (G.itens || []).length)) sec('presentes', 'Presentes', `${tit(G.titulo)}${G.texto ? `<p class="texto">${G.texto}</p>` : ''}${(G.itens || []).length ? `<div class="ev">${G.itens.map(i => `<p class="texto">${i}</p>`).join('')}</div>` : ''}`, 'alt');
 
-if (C.rsvp) add('confirmar', 'RSVP', `${titulo('Confirmar Presença')}
-  <p class="texto" style="font-size:.95rem">Favor confirmar até <b>${C.rsvp.prazo}</b></p>
-  <form id="formRsvp">
-    <label>Seu Nome Completo <input name="nome" required autocomplete="name"></label>
-    <label>Você irá comparecer?
-      <select name="presenca"><option value="sim">Sim! Estarei lá para celebrar</option><option value="nao">Infelizmente não poderei ir</option></select></label>
-    <label>Mensagem para a Debutante <textarea name="recado"></textarea></label>
-    <button class="btn" type="submit">Confirmar no WhatsApp</button>
-  </form>`, true);
+const R = C.rsvp;
+if (R) sec('confirmar', 'Confirmar', `${tit(R.titulo)}<p class="texto">${R.chamada || ''}</p>
+  <button class="rsvp-ico" id="rsvpBtn" aria-expanded="false" aria-controls="rsvpBox" aria-label="Confirmar presença">${R.iconeImagem ? `<img src="${R.iconeImagem}" alt="">` : ICONE_OK}</button>
+  <div class="revelar" id="rsvpBox"><div class="ev"><p class="texto">${R.mensagem}</p>
+  ${R.whatsapp ? `<form id="formRsvp">
+    <label>Seu nome completo <input name="nome" required autocomplete="name"></label>
+    <label>Você irá comparecer?<select name="presenca"><option value="sim">Sim, estarei lá!</option><option value="nao">Infelizmente não poderei ir</option></select></label>
+    <label>Acompanhantes (nomes ou quantidade) <input name="acomp"></label>
+    <label>Mensagem para a debutante <textarea name="recado"></textarea></label>
+    <button class="btn cheio" type="submit">Confirmar no WhatsApp</button></form>` : ''}</div></div>`, 'alt');
 
-const rodape = `<footer>${C.logoNome ? `<img class="logo-png" src="${C.logoNome}" alt="${C.nome}">` : `<div class="nome">${C.nome}</div>`}
-  <p style="margin-top:6px;font-weight:600;color:var(--rosa)">${C.hashtag}</p></footer>`;
+$('#app').innerHTML = capa + secoes.join('') + `<footer>${nomeHTML('script', true, C.logoRodape)}<p>${C.hashtag}</p></footer>`;
+$('#menu').innerHTML = menu.map(([id, r]) => `<a href="#${id}">${r}</a>`).join('');
 
-$('#app').innerHTML = capa + secoes.join('') + rodape;
-$('#menu').innerHTML = menuItens.map(([id, r]) => `<a href="#${id}">${r}</a>`).join('');
-
-/* Animações */
-const rvs = document.querySelectorAll('section.sec .wrap, footer');
+/* Animações de entrada, menu, contagem */
+const rvs = document.querySelectorAll('.wrap, footer');
 rvs.forEach(e => e.classList.add('rv'));
 if ('IntersectionObserver' in window) {
   const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }), { threshold: .1 });
   rvs.forEach(e => io.observe(e));
 } else rvs.forEach(e => e.classList.add('in'));
+addEventListener('scroll', () => $('#menu').classList.toggle('show', scrollY > innerHeight * .4), { passive: true });
 
 function contagem() {
-  const el = $('#contagem'), dif = data - new Date();
-  if (dif <= 0) { el.innerHTML = '<p style="font-family:var(--f-tit);font-size:1.2rem;color:var(--vinho);background:var(--fundo);border:1px solid var(--ouro);border-radius:99px;padding:8px 18px;display:inline-block">É HOJE A FESTA!</p>'; return; }
-  const d = Math.floor(dif / 864e5), h = Math.floor(dif % 864e5 / 36e5), m = Math.floor(dif % 36e5 / 6e4), s = Math.floor(dif % 6e4 / 1e3);
-  el.className = 'contagem';
-  el.innerHTML = [[d, 'dias'], [h, 'hs'], [m, 'min'], [s, 'seg']].map(([n, t]) => `<div><b>${String(n).padStart(2, '0')}</b><span>${t}</span></div>`).join('');
+  const el = $('#cd'); if (!el) return;
+  const dif = d0 - new Date();
+  if (dif <= 0) { el.innerHTML = '<span style="font-size:.8rem">É HOJE!</span>'; return; }
+  const n = [Math.floor(dif / 864e5), Math.floor(dif % 864e5 / 36e5), Math.floor(dif % 36e5 / 6e4), Math.floor(dif % 6e4 / 1e3)];
+  el.innerHTML = n.map((v, i) => `<div><b>${String(v).padStart(2, '0')}</b><span>${['dias', 'horas', 'min', 'seg'][i]}</span></div>`).join('');
 }
 contagem(); setInterval(contagem, 1000);
 
-const menu = $('#menu');
-addEventListener('scroll', () => menu.classList.toggle('show', scrollY > innerHeight * .4), { passive: true });
-
-const fl = $('#flores');
-function zonaFlores() {
-  const a = innerHeight * .5, top = id => { const e = document.getElementById(id); return e ? e.getBoundingClientRect().top : null; };
-  const ini = top('convite'), conf = top('confirmar');
-  const fim = top('traje') ?? top('presentes') ?? conf;
-  const on = (ini !== null && ini <= a && (fim === null || fim > a)) || (conf !== null && conf <= a);
-  fl.classList.toggle('on', on);
-}
-addEventListener('scroll', zonaFlores, { passive: true }); addEventListener('resize', zonaFlores); zonaFlores();
-
-const slides = document.querySelectorAll('.slide'), dots = document.querySelectorAll('.dot'); let cur = 0;
-if (slides.length > 1) setInterval(() => {
-  slides[cur].classList.remove('ativo'); dots[cur].classList.remove('ativo');
-  cur = (cur + 1) % slides.length;
-  slides[cur].classList.add('ativo'); dots[cur].classList.add('ativo');
-}, 4000);
-
-const bp = $('#verPresentes');
-if (bp) bp.onclick = () => {
-  const l = $('#listaPresentes'), a = l.classList.toggle('aberto');
-  bp.setAttribute('aria-expanded', a); bp.textContent = a ? 'Ocultar sugestões' : 'Ver sugestões de presente';
-};
-
+/* Confirmar presença */
+const rb = $('#rsvpBtn');
+if (rb) rb.onclick = () => { const a = $('#rsvpBox').classList.toggle('aberto'); rb.setAttribute('aria-expanded', a); };
 const form = $('#formRsvp');
 if (form) form.onsubmit = e => {
   e.preventDefault();
   const f = new FormData(form), vai = f.get('presenca') === 'sim';
-  let msg = `Olá! Sou ${f.get('nome')}. ` + (vai ? `Confirmo minha presença nos XV Anos da ${C.nome}!` : `Infelizmente não poderei comparecer.`);
+  let msg = `Olá! Sou ${f.get('nome')}. ` + (vai ? `Confirmo minha presença nos XV Anos de ${C.nome}.` : `Infelizmente não poderei comparecer.`);
+  if (vai && f.get('acomp')) msg += `\nAcompanhantes: ${f.get('acomp')}`;
   if (f.get('recado')) msg += `\nRecado: ${f.get('recado')}`;
   open(`https://wa.me/${C.rsvp.whatsapp}?text=${enc(msg)}`, '_blank');
 };
