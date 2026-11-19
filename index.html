@@ -121,6 +121,15 @@ footer .logo-png{max-width:260px;margin:0 auto;filter:brightness(0) invert(1)}
 #flores:not(.on) .flor{animation-play-state:paused}
 /* selo de abertura: sem animação */
 .selo-clique{position:relative;z-index:5;width:130px;height:130px;border-radius:50%;background:transparent}
+/* aviso "deslize" */
+#dica{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translate(-50%,10px);z-index:110;
+  opacity:0;pointer-events:none;transition:opacity .8s ease,transform .8s ease;
+  display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 16px 6px;
+  font-family:var(--f-tit);font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--vinho);
+  background:var(--fundo);border:1px solid var(--ouro);border-radius:99px;box-shadow:0 4px 14px rgba(184,71,79,.15)}
+#dica.on{opacity:.92;transform:translate(-50%,0)}
+#dica svg{width:14px;height:14px;animation:dica-seta 1.6s ease-in-out infinite}
+@keyframes dica-seta{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
 </style>
 </head>
 <body class="locked">
@@ -131,6 +140,7 @@ footer .logo-png{max-width:260px;margin:0 auto;filter:brightness(0) invert(1)}
 <nav id="menu"></nav>
 <main id="app"></main>
 <button id="musicBtn" title="Música">♪</button>
+<div id="dica" aria-hidden="true">Deslize<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
 <div id="toast" role="status"></div>
 
 <script>
@@ -188,7 +198,7 @@ const CONFIG = {
 
   local: {
     titulo: "Recepção & Festa",
-    horario: "20h00",
+    horario: "21h00",
     espaco: "Mansão Brilhante",
     endereco: "",
     mapsUrl: "https://maps.app.goo.gl/8oMwf5mvcamRDGK49"
@@ -198,7 +208,7 @@ const CONFIG = {
 
   dressCode: {
     titulo: "Dress Code",
-    texto: "Traje Esporte Fino."
+    texto: "Traje Esporte Fino. Reseve o tom de rosa para a debutante."
   },
 
   galeria: [
@@ -279,11 +289,23 @@ function tocar() {
 function pausar() { audio.pause(); tocando = false; musicBtn.classList.remove('tocando'); }
 musicBtn.onclick = () => tocando ? pausar() : tocar();
 
+/* aviso "deslize": aparece 10s depois de abrir o convite e some sozinho */
+const dica = $('#dica'); let dicaTimer;
+function mostrarDica() {
+  dicaTimer = setTimeout(() => {
+    if (scrollY > innerHeight * .3) return;
+    dica.classList.add('on');
+    setTimeout(() => dica.classList.remove('on'), 6000);
+  }, 10000);
+}
+addEventListener('scroll', () => { if (scrollY > 40) { clearTimeout(dicaTimer); dica.classList.remove('on'); } }, { passive: true });
+
 /* ✉️ Abertura */
 const intro = $('#intro');
 function entrar() {
   intro.classList.add('open'); document.body.classList.remove('locked');
   tocar();
+  mostrarDica();
   setTimeout(() => intro.remove(), 1100);
 }
 if (C.usarTelaDeAbertura) {
@@ -303,7 +325,7 @@ if (C.usarTelaDeAbertura) {
     intro.innerHTML = `${vid}<p class="intro-tag">XV Anos</p><p class="intro-nome">${C.nome}</p><button class="selo" id="abrir" aria-label="Abrir Convite">Abrir</button>`;
   }
   $('#abrir').onclick = e => { e.stopPropagation(); abrir(); };
-} else { intro.remove(); document.body.classList.remove('locked'); }
+} else { intro.remove(); document.body.classList.remove('locked'); mostrarDica(); }
 
 /* Seções */
 const secoes = [], menuItens = [];
