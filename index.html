@@ -117,21 +117,14 @@ footer .logo-png{max-width:260px;margin:0 auto;filter:brightness(0) invert(1)}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .rv{opacity:0;transform:translateY(20px);transition:opacity .8s,transform .8s}
 .rv.in{opacity:1;transform:none}
+.rolar{display:inline-flex;align-items:center;gap:5px;margin-top:16px;font-size:.62rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--escuro);opacity:.85;text-shadow:0 1px 6px var(--fundo)}
+.rolar svg{width:12px;height:12px;animation:seta 2.4s ease-in-out infinite}
+@keyframes seta{0%,100%{transform:translateY(-1px)}50%{transform:translateY(2px)}}
+@media (prefers-reduced-motion:reduce){.rolar svg{animation:none}}
 #flores.on{opacity:1}
 #flores:not(.on) .flor{animation-play-state:paused}
 /* selo de abertura: sem animação */
 .selo-clique{position:relative;z-index:5;width:130px;height:130px;border-radius:50%;background:transparent}
-
-/* aviso discreto de rolagem */
-.aviso-rolar{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:90;
-  transform:translate(-50%,10px);display:flex;flex-direction:column;align-items:center;gap:2px;
-  padding:8px 18px 6px;border-radius:99px;background:rgba(255,250,250,.72);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--ouro);
-  color:var(--vinho);font-family:var(--f-corpo);font-size:.68rem;font-weight:500;letter-spacing:.16em;
-  text-transform:uppercase;opacity:0;pointer-events:none;transition:opacity .9s ease,transform .9s ease}
-.aviso-rolar.on{opacity:.9;transform:translate(-50%,0)}
-.aviso-rolar svg{width:16px;height:16px;animation:avisoSeta 1.8s ease-in-out infinite}
-@keyframes avisoSeta{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
 </style>
 </head>
 <body class="locked">
@@ -209,7 +202,7 @@ const CONFIG = {
 
   dressCode: {
     titulo: "Dress Code",
-    texto: "Traje Esporte Fino. Reseve o tom de rosa para a debutante."
+    texto: "Traje Esporte Fino. Reserve o tom de rosa para a debutante."
   },
 
   galeria: [
@@ -331,6 +324,7 @@ const capa = `
   <div class="base">
     <p class="data">${diaSemana}, ${dataLonga}</p>
     <div id="contagem"></div>
+    <p class="rolar" aria-hidden="true">Deslize para baixo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></p>
   </div>
 </header>`;
 
@@ -439,35 +433,6 @@ if (form) form.onsubmit = e => {
   if (f.get('recado')) msg += `\nRecado: ${f.get('recado')}`;
   open(`https://wa.me/${C.rsvp.whatsapp}?text=${enc(msg)}`, '_blank');
 };
-
-/* aviso "deslize para baixo": aparece 10s após abrir o convite e some sozinho */
-(function () {
-  const el = document.createElement('div');
-  el.className = 'aviso-rolar';
-  el.setAttribute('aria-hidden', 'true');
-  el.innerHTML = `<span>Deslize para baixo</span>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`;
-  document.body.appendChild(el);
-
-  let fim = false;
-  const esconder = () => { fim = true; el.classList.remove('on'); removeEventListener('scroll', aoRolar); };
-  const aoRolar = () => { if (scrollY > 40) esconder(); };
-  addEventListener('scroll', aoRolar, { passive: true });
-
-  const iniciar = () => setTimeout(() => {
-    if (fim || scrollY > 40) return;
-    el.classList.add('on');
-    setTimeout(esconder, 6000);
-  }, 3000);
-
-  if (!document.body.classList.contains('locked')) iniciar();
-  else {
-    const mo = new MutationObserver(() => {
-      if (!document.body.classList.contains('locked')) { mo.disconnect(); iniciar(); }
-    });
-    mo.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-  }
-})();
 </script>
 </body>
 </html>
